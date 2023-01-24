@@ -31,9 +31,12 @@ let strip2 = neopixel.create(DigitalPin.P13, 600, NeoPixelMode.RGB)
 let farbe = 1
 stop = 0
 farbig = 1
+// Helligkeit raufsetzen
 let Helligkeit = 10
 wasserpumpen = 0
 wassermagie = 0
+strip.setBrightness(Helligkeit)
+strip2.setBrightness(Helligkeit)
 basic.forever(function () {
     if (Helligkeit < 200) {
         Helligkeit += 5
@@ -42,8 +45,21 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    strip.setBrightness(Helligkeit)
-    strip2.setBrightness(Helligkeit)
+    for (let Index = 0; Index <= 7; Index++) {
+        farbe = Index
+        strip2.setPixelColor(0, neopixel.rgb(255, 255, 255))
+    }
+})
+basic.forever(function () {
+    strip2.shift(1)
+    strip2.show()
+    if (stop == 1) {
+        while (stop == 1) {
+            basic.pause(100)
+        }
+    } else {
+        basic.pause(10)
+    }
 })
 basic.forever(function () {
     if (wassermagie == 1) {
@@ -83,17 +99,6 @@ basic.forever(function () {
             strip2.setPixelColor(0, neopixel.colors(NeoPixelColors.Blue))
             wasserpumpen = 0
         }
-    }
-})
-basic.forever(function () {
-    strip2.shift(1)
-    strip2.show()
-    if (stop == 1) {
-        while (stop == 1) {
-            basic.pause(100)
-        }
-    } else {
-        basic.pause(10)
     }
 })
 basic.forever(function () {
